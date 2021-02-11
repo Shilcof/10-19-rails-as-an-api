@@ -55,7 +55,6 @@ class Item{
     }
 
     deleteItem = (e) => {
-        this.element.remove() // remove it before the fetch request 
         itemApi.deleteItem(this.id)
     }
 

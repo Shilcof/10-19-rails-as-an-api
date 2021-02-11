@@ -36,12 +36,12 @@ class ItemApi {
       
        // pessimistic rendering 
        fetch(this.baseUrl, configObj)
-        .then(r => r.json())
-        .then(json => {
-            // renderItem(json.data)
-            const i = new Item({id: json.data.id, ...json.data.attributes})
-            i.attachToDom()
-        })
+        // .then(r => r.json())
+        // .then(json => {
+        //     // renderItem(json.data)
+        //     const i = new Item({id: json.data.id, ...json.data.attributes})
+        //     i.attachToDom()
+        // })
     }
 
     sendPatch = (item) => {
@@ -79,9 +79,9 @@ class ItemApi {
             }
         }
         
-        fetch(`${this.baseURL}/${id}`, configObj)
-            .then(r => r.json())
-            .then(json => alert(json.message))
+        fetch(`${this.baseUrl}/${id}`, configObj)
+            // .then(r => r.json())
+            // .then(json => alert(json.message))
     }
 }
 

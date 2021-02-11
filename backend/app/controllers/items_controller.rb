@@ -14,8 +14,10 @@ class ItemsController < ApplicationController
 
     def create 
         item = Item.new(item_params)
+        item.category = Category.last
         if item.save 
-            render json: ItemSerializer.new(item, include: [:category])
+            # render json: ItemSerializer.new(item, include: [:category])
+            ActionCable.server.broadcast("items", method: "create", item: item)
         else
             render json: {error: "could not save"}
         end
@@ -24,7 +26,8 @@ class ItemsController < ApplicationController
     def destroy 
         item = Item.find(params[:id])
         item.destroy 
-        render json: {message: "successfully deleted #{item.name}"}
+        # render json: {message: "successfully deleted #{item.name}"}
+        ActionCable.server.broadcast("items", method: "destroy", item: item)
     end
 
     def update 
@@ -39,6 +42,6 @@ class ItemsController < ApplicationController
     private 
 
     def item_params
-        params.require(:item).permit(:price, :description, :name, :category_name)
+        params.require(:item).permit(:price, :description, :name, :category_id)
     end
 end
